@@ -1,0 +1,15 @@
+# Eclipse / STS workspace
+.metadata/
+RemoteSystemsTempFiles/
+
+# IntelliJ / VS Code
+.idea/
+.vscode/
+*.iml
+
+# Maven
+**/target/
+
+# OS
+.DS_Store
+Thumbs.db
