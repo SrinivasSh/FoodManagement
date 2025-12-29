@@ -25,7 +25,7 @@ public class OrderServiceImpl implements OrderService {
 	
 	// Using rest Template for fetching restuarantName
 	public String fetchResturantName(Order order) {
-		return restTemplate.getForObject("http://localhost:8002/restuarant/getName/" + order.getResturantId(),
+		return restTemplate.getForObject("http://RestaurantManagement/restuarant/getName/" + order.getResturantId(),
 				String.class);
 
 	}
