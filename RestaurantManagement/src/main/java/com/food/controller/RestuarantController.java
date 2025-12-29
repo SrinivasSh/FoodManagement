@@ -2,6 +2,8 @@ package com.food.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +29,9 @@ public class RestuarantController {
 	public RestuarantController(RestuarantService restuarantService) {
 		this.restuarantService = restuarantService;
 	}
+	
+	@Autowired
+	private Environment environment;
 
 	@PostMapping("/add")
 	public ResponseEntity<RestuarantCreationResponse> addResturant(
@@ -62,7 +67,8 @@ public class RestuarantController {
 	@GetMapping("/getName/{resturantId}")
 	public ResponseEntity<String> getResturantNameByID(@PathVariable(name = "resturantId") int resturantId) {
 		RestuarantResponseDto restuarantResponseDto = restuarantService.getResturantById(resturantId);
-		return ResponseEntity.ok(restuarantResponseDto.getRestuarantName());
+		String port = environment.getProperty("local.server.port");  ///For checking the port in the restuarant name
+		return ResponseEntity.ok(restuarantResponseDto.getRestuarantName()+ port);
 	}
 	
 	//PLACE ORDER FROM RESTUARANT
