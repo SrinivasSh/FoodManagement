@@ -1,5 +1,8 @@
 package com.food.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,7 +25,7 @@ public class OrderServiceImpl implements OrderService {
 		this.orderRepository = orderRepository;
 		this.restTemplate = restTemplate;
 	}
-	
+
 	// Using rest Template for fetching restuarantName
 	public String fetchResturantName(Order order) {
 		return restTemplate.getForObject("http://RestaurantManagement/restuarant/getName/" + order.getResturantId(),
@@ -50,6 +53,12 @@ public class OrderServiceImpl implements OrderService {
 		String resturantName = fetchResturantName(order);
 		orderResponseDto.setResturantName(resturantName);
 		return orderResponseDto;
+	}
+
+	@Override
+	public List<OrderResponseDto> fetchAllOrders() {
+		return orderRepository.findAll().stream().map(OrderResponseDtoBuilder::buildOrderResponseDtoFromOrder)
+				.collect(Collectors.toList());
 	}
 
 }
