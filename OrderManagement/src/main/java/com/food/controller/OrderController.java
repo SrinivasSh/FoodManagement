@@ -2,6 +2,8 @@ package com.food.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import com.food.service.OrderService;
 
 @RestController
 @RequestMapping("/orders")
+@RefreshScope
 public class OrderController {
 
 	private final OrderService orderService;
@@ -26,6 +29,9 @@ public class OrderController {
 	public OrderController(OrderService orderService) {
 		this.orderService = orderService;
 	}
+	
+	@Value("${discount.food}")
+	private int discount;
 
 	@PostMapping
 	public ResponseEntity<OrderResponseDto> placeOrder(@RequestBody OrderRequestDto orderRequestDto) {
@@ -45,6 +51,12 @@ public class OrderController {
 		List<OrderResponseDto> orderResponseDto = orderService.fetchAllOrders();
 		return ResponseEntity.ok(orderResponseDto);
 
+	}
+	
+	//GET DISCOUNT FROM PROPERTIES FILES
+	@GetMapping("/discount")
+	public int discount() {
+		return discount;
 	}
 
 }
