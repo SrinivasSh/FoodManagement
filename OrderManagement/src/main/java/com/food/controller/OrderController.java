@@ -29,7 +29,7 @@ public class OrderController {
 	public OrderController(OrderService orderService) {
 		this.orderService = orderService;
 	}
-	
+
 	@Value("${discount.food}")
 	private int discount;
 
@@ -38,22 +38,23 @@ public class OrderController {
 		OrderResponseDto orderResponseDto = orderService.placeOrder(orderRequestDto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(orderResponseDto);
 	}
-	
+
 	@PutMapping("/status/{orderId}")
-	public ResponseEntity<OrderResponseDto> updateOrderStatus(@PathVariable(name = "orderId") int orderId, @RequestParam(name = "status") String status){
+	public ResponseEntity<OrderResponseDto> updateOrderStatus(@PathVariable(name = "orderId") int orderId,
+			@RequestParam(name = "status") String status) {
 		OrderResponseDto orderResponseDto = orderService.updateOrderStatus(orderId, status);
 		return ResponseEntity.ok(orderResponseDto);
-		
+
 	}
-	
+
 	@GetMapping("/getAll")
 	public ResponseEntity<List<OrderResponseDto>> getAllOrders() {
 		List<OrderResponseDto> orderResponseDto = orderService.fetchAllOrders();
 		return ResponseEntity.ok(orderResponseDto);
 
 	}
-	
-	//GET DISCOUNT FROM PROPERTIES FILES
+
+	// GET DISCOUNT FROM PROPERTIES FILES
 	@GetMapping("/discount")
 	public int discount() {
 		return discount;
