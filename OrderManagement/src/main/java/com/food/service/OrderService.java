@@ -13,4 +13,6 @@ public interface OrderService {
 
 	public List<OrderResponseDto> fetchAllOrders();
 
+	public String getRestuarantName(int restuarantId);
+
 }

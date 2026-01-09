@@ -60,4 +60,10 @@ public class OrderController {
 		return discount;
 	}
 
+	@GetMapping("/resturantName/{restuarantId}")
+	public String getRestuarantName(@PathVariable(name = "restuarantId") int restuarantId) {
+		return orderService.getRestuarantName(restuarantId);
+
+	}
+
 }

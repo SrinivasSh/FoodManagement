@@ -13,5 +13,11 @@ public class GloabalException {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
 
 	}
+	
+	@ExceptionHandler(RestaurantNotFoundException.class)
+	public ResponseEntity<String> handleRestuarantNotFoundException(RestaurantNotFoundException ex) {
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+
+	}
 
 }
